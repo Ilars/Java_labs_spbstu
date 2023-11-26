@@ -1,64 +1,57 @@
-public class StackWithArray {
-    private int maxSize;
-    private int top;
-    private int[] stackArray;
+import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.List;
 
-    public StackWithArray(int size) {
-        maxSize = size;
-        stackArray = new int[maxSize];
-        top = -1;
+public class DynamicArrayStack<T> {
+    private List<T> stack;
+
+    public DynamicArrayStack() {
+        this.stack = new ArrayList<>();
     }
 
     public boolean isEmpty() {
-        return top == -1;
+        return stack.isEmpty();
     }
 
-    public boolean isFull() {
-        return top == maxSize - 1;
+    public void push(T item) {
+        stack.add(item);
+        System.out.println("Добавлен элемент: " + item);
     }
 
-    public void push(int value) {
-        if (isFull()) {
-            System.out.println("Стек переполнен. Невозможно добавить элемент " + value);
-        } else {
-            stackArray[++top] = value;
-            System.out.println("Добавлен элемент " + value);
-        }
-    }
-
-    public int pop() {
+    public T pop() {
         if (isEmpty()) {
-            System.out.println("Стек пуст. Невозможно удалить элемент.");
-            return -1; // Можно выбрать другое значение по умолчанию
-        } else {
-            int value = stackArray[top--];
-            System.out.println("Удален элемент " + value);
-            return value;
+            throw new EmptyStackException();
         }
+        T item = stack.remove(stack.size() - 1);
+        System.out.println("Удален элемент: " + item);
+        return item;
     }
 
-    public int peek() {
+    public T peek() {
         if (isEmpty()) {
-            System.out.println("Стек пуст. Невозможно просмотреть верхний элемент.");
-            return -1; // Можно выбрать другое значение по умолчанию
-        } else {
-            int value = stackArray[top];
-            System.out.println("Верхний элемент: " + value);
-            return value;
+            throw new EmptyStackException();
         }
+        return stack.get(stack.size() - 1);
     }
 
     public static void main(String[] args) {
-        StackWithArray stack = new StackWithArray(5);
+        DynamicArrayStack<Integer> stack = new DynamicArrayStack<>();
 
         stack.push(1);
         stack.push(2);
         stack.push(3);
-        stack.peek();
+
+        System.out.println("Верхний элемент: " + stack.peek());
+
         stack.pop();
-        stack.peek();
         stack.pop();
         stack.pop();
-        stack.pop();
+
+        try {
+            System.out.println("Верхний элемент: " + stack.peek()); // Возникнет исключение
+        } catch (EmptyStackException e) {
+            System.out.println("Стек пуст.");
+        }
     }
 }
+
