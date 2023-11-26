@@ -35,7 +35,7 @@ public class StackWithArray<T> {
     }
 
     public static void main(String[] args) {
-        DynamicArrayStack<Integer> stack = new DynamicArrayStack<>();
+        StackWithArray<Integer> stack = new StackWithArray<>();
 
         stack.push(1);
         stack.push(2);
