@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 
-public class DynamicArrayStack<T> {
+public class StackWithArray<T> {
     private List<T> stack;
 
-    public DynamicArrayStack() {
+    public StackWithArray() {
         this.stack = new ArrayList<>();
     }
 
